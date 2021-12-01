@@ -1,0 +1,61 @@
+# OpenApi
+mp:
+  openapi:
+    extensions:
+      smallrye:
+        info:
+          title: Customer API
+          version: 0.0.1
+          description: API for retrieving customers
+          contact:
+            email: mateusgoncalvespereira@gmail.com
+            name: Customer API Support
+            url: localhost
+          license:
+            name: Apache 2.0
+            url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# Database
+quarkus:
+  banner:
+    enabled: false
+  datasource:
+    db-kind: postgresql
+  hibernate-orm:
+    database:
+      generation: none
+
+# Test Profile
+"%test":
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "io.demo":
+          level: DEBUG
+    hibernate-orm:
+      log:
+        sql: true
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
+
+# Dev Profile
+"%dev":
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "io.demo":
+          level: DEBUG
+    datasource:
+      username: test
+      password: password
+      jdbc:
+        url: jdbc:postgresql://localhost:5432/customer_db
+    hibernate-orm:
+      log:
+        sql: true
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
